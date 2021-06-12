@@ -5,22 +5,40 @@ from questionary import prompt
 from pyfiglet import Figlet, print_figlet
 import questionary
 from datetime import date
+import date_function
 
 def info():
-    return "brief info"
+    return "Welcome to the COVID-19 tracker.\nThis program features "
 
 # A brief introduction about COVID-19 and its symptoms
 def symptoms():
-    return "hello"
+    return "Here are some symptoms of COVID-19"
 
 # Shows the total number of COVID-19 test cases in South Korea "TODAY"
 def total():
-    return "total_number"
+    return "total_number number of COVID-19 positive test cases TODAY"
 
 def specific_date(date):
+    if len(date) != 10:
+       return 'length error'
+    elif date[4] != '-' and date[7] != '-':
+        return 'symbol error'
+    elif date[0:4].isdecimal() == False:
+       return 'Please write in yyyy-mm-dd form'
+    elif date[5:7].isdecimal() == False:
+       return 'Please write in yyyy-mm-dd form'
+    elif date[8:].isdecimal() == False:
+       return 'Please write in yyyy-mm-dd form'
+
     # some JSON:
     #x =  '{ "name":"John", "age":30, "city":"New York"}'
-    data = '{"1234":"success", "3":"hello"}'
+    datas = json.loads(date_function.realdata)
+    return datas.get(date,'keyerror')
+
+    data = '{"1234":"success", "3":"hello", "2123-33-33":"yay"}'
+    date_data = '{"2021-05-21":"john"}'
+    real = json.loads(date_data)
+    return real[date]
     # parse x:
     # y = json.loads(x)
     z = json.loads(data)
