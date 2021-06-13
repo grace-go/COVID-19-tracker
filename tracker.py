@@ -98,5 +98,6 @@ def test_specific_date():
     assert specific_date("1111-22333") == 'symbol error'
     assert specific_date("1111-22-3k") == 'Please write in yyyy-mm-dd form'
     assert specific_date("2020-00-00") == 'Sorry, the data for this date doesn\'t exist.'
+
 def test_specific_area():
-    assert 2 == 2
+    assert specific_area("hi") == 'The region name doesn\'t exist'
