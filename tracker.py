@@ -88,6 +88,6 @@ if __name__ == "__main__":
 ### TESTS
 
 def test_specific_date():
-    return "i"
+    assert 1 == 1
 def test_specific_area():
-    return "e"
+    assert 2 == 2
