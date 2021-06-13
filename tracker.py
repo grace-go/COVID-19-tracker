@@ -29,28 +29,14 @@ def specific_date(date):
        return 'Please write in yyyy-mm-dd form'
     elif date[8:].isdecimal() == False:
        return 'Please write in yyyy-mm-dd form'
-
-    # some JSON:
-    #x =  '{ "name":"John", "age":30, "city":"New York"}'
     datas = json.loads(date_function.realdata)
     return datas.get(date,'keyerror')
 
-    data = '{"1234":"success", "3":"hello", "2123-33-33":"yay"}'
-    date_data = '{"2021-05-21":"john"}'
-    real = json.loads(date_data)
-    return real[date]
-    # parse x:
-    # y = json.loads(x)
-    z = json.loads(data)
-    # the result is a Python dictionary:
-    # print(y["age"])
-    # file = json.dumps(data_by_date)
-    # y = json.loads(data_by_date)
-    return z[date]
-
 # Shows the total number of COVID-19 positive test cases in specific "region"
 def specific_area(region):
-    return region
+    string = region.lower()
+    datas = json.loads(date_function.regional_data)
+    return datas.get(string,'The region name doesn\'t exist')
 
 def testing_info():
     return 'testing'
@@ -70,7 +56,7 @@ class CovidTracker(cli.Application):
             print_figlet("COVID-19 Tracker")
             today = date.today()
             print("Today's date:", today)
-            multiple = ['Symptoms', 'Total Positive Cases', 'Testing info', 'Positive Cases in specific date']
+            multiple = ['Symptoms', 'Total Positive Cases', 'Testing info', 'Positive Cases in specific date', 'Today\'s positive case by region']
             question = questionary.select("What do you want to know?", choices=multiple)
             response = question.ask()
             if response == 'Symptoms':
@@ -82,6 +68,9 @@ class CovidTracker(cli.Application):
             elif response == 'Positive Cases in specific date':
                 another_q = questionary.text("Please put the date in yyyy-mm-dd form.").ask()
                 print(specific_date(another_q))
+            elif response == 'Today\'s positive case by region':
+                region = questionary.text("Please type the name of the region").ask()
+                print(specific_area(region))
 
 if __name__ == "__main__":
     CovidTracker()
