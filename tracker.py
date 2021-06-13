@@ -34,7 +34,7 @@ def total():
 def specific_date(date):
     if len(date) != 10:
        return 'length error'
-    elif date[4] != '-' and date[7] != '-':
+    elif date[4] != '-' or date[7] != '-':
         return 'symbol error'
     elif date[0:4].isdecimal() == False:
        return 'Please write in yyyy-mm-dd form'
@@ -43,7 +43,7 @@ def specific_date(date):
     elif date[8:].isdecimal() == False:
        return 'Please write in yyyy-mm-dd form'
     datas = json.loads(date_function.realdata)
-    return datas.get(date,'keyerror')
+    return datas.get(date,'Sorry, the data for this date doesn\'t exist.')
 
 # Shows the total number of COVID-19 positive test cases in specific "region"
 def specific_area(region):
@@ -88,6 +88,15 @@ if __name__ == "__main__":
 ### TESTS
 
 def test_specific_date():
-    assert 1 == 1
+    may_eleventh = specific_date("2021-05-11")
+    assert may_eleventh == "510"
+    assert specific_date("hello") == 'length error'
+    assert specific_date("helloo-dkk") == 'symbol error'
+    assert specific_date("hihi-03-02") == 'Please write in yyyy-mm-dd form'
+    assert specific_date("1111-hiee-") == 'symbol error'
+    assert specific_date("1111-22-hh") == 'Please write in yyyy-mm-dd form'
+    assert specific_date("1111-22333") == 'symbol error'
+    assert specific_date("1111-22-3k") == 'Please write in yyyy-mm-dd form'
+    assert specific_date("2020-00-00") == 'Sorry, the data for this date doesn\'t exist.'
 def test_specific_area():
     assert 2 == 2
