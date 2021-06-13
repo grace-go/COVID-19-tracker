@@ -8,15 +8,28 @@ from datetime import date
 import date_function
 
 def info():
-    return "Welcome to the COVID-19 tracker.\nThis program features "
+    return "Welcome to the COVID-19 tracker.\nThis program has various features, including:\n- showing the symptoms of COVID-19\n- displays the total positive cases\n- shows the testing information and the positive cases in specific date\n- today's positive case by region."
 
 # A brief introduction about COVID-19 and its symptoms
 def symptoms():
-    return "Here are some symptoms of COVID-19"
+    return """Here are some POSSIBLE symptoms of COVID-19:
+- Fever or chills
+- Cough
+- Shortness of breath or difficulty breathing
+- Fatigue
+- Muscle or body aches
+- Headache
+- New loss of taste or smell
+- Sore throat
+- Congestion or runny nose
+- Nausea or vomiting
+- Diarrhea
+
+These datas are from https://www.cdc.gov/coronavirus/2019-ncov/symptoms-testing/symptoms.html"""
 
 # Shows the total number of COVID-19 test cases in South Korea "TODAY"
 def total():
-    return "total_number number of COVID-19 positive test cases TODAY"
+    return "There are 452 total cases today"
 
 def specific_date(date):
     if len(date) != 10:
@@ -39,11 +52,7 @@ def specific_area(region):
     return datas.get(string,'The region name doesn\'t exist')
 
 def testing_info():
-    return 'testing'
-
-# Information about where to contact and test COVID-19
-def contact_info():
-    return "contact"
+    return 'Every citizens can get tested without cost at public health center.'
 
 class CovidTracker(cli.Application):
     VERSION = "1.4"
@@ -56,6 +65,7 @@ class CovidTracker(cli.Application):
             print_figlet("COVID-19 Tracker")
             today = date.today()
             print("Today's date:", today)
+            print("Every information about positive test cases are from http://ncov.mohw.go.kr/")
             multiple = ['Symptoms', 'Total Positive Cases', 'Testing info', 'Positive Cases in specific date', 'Today\'s positive case by region']
             question = questionary.select("What do you want to know?", choices=multiple)
             response = question.ask()
