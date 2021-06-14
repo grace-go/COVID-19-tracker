@@ -122,6 +122,7 @@ def test_specific_date():
     assert june_thirteenth == "452"
 
 def test_specific_area():
+    """Tests the specific_area function"""
     assert specific_area("hi") == 'The region name doesn\'t exist'
     # Check for case-insensitive
     assert specific_area("SEOUL") == "176"
