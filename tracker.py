@@ -77,10 +77,10 @@ class CovidTracker(cli.Application):
                 print(testing_info())
             elif response == 'Positive Cases in specific date':
                 another_q = questionary.text("Please put the date in yyyy-mm-dd form.").ask()
-                print(specific_date(another_q))
+                print("There were " + specific_date(another_q) + " positive cases in " + another_q)
             elif response == 'Today\'s positive case by region':
                 region = questionary.text("Please type the name of the region").ask()
-                print(specific_area(region))
+                print("There are " + specific_area(region) + " positive cases in " + region + " today")
 
 if __name__ == "__main__":
     CovidTracker()
@@ -101,3 +101,8 @@ def test_specific_date():
 
 def test_specific_area():
     assert specific_area("hi") == 'The region name doesn\'t exist'
+    # Check for case-insensitive
+    assert specific_area("SEOUL") == "176"
+    assert specific_area("Seoul") == "176"
+    assert specific_area("seoul") == "176"
+    assert specific_area("seouL") == "176"
