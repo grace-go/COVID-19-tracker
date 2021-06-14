@@ -27,5 +27,4 @@ regional_data = """
     "ulsan":"2","daejeon":"11","jeonbuk":"1","jeonnam":"3",
     "jeju":"5","sejong":"1"
 }
-
 """

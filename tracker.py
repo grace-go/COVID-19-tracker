@@ -6,6 +6,7 @@ from pyfiglet import Figlet, print_figlet
 import questionary
 from datetime import date
 import date_function
+import sys
 
 def info():
     return "Welcome to the COVID-19 tracker.\nThis program has various features, including:\n- showing the symptoms of COVID-19\n- displays the total positive cases\n- shows the testing information and the positive cases in specific date\n- today's positive case by region."
@@ -54,6 +55,9 @@ def specific_area(region):
 def testing_info():
     return 'Every citizens can get tested without cost at public health center.'
 
+def total_regional_data():
+    return date_function.regional_data
+
 class CovidTracker(cli.Application):
     VERSION = "1.4"
     info = cli.Flag(['i', 'info'], help= "Shows the basic info about this CLI")
@@ -66,7 +70,8 @@ class CovidTracker(cli.Application):
             today = date.today()
             print("Today's date:", today)
             print("Every information about positive test cases are from http://ncov.mohw.go.kr/")
-            multiple = ['Symptoms', 'Total Positive Cases', 'Testing info', 'Positive Cases in specific date', 'Today\'s positive case by region']
+            print("If you want to quit the program, press ctrl + c")
+            multiple = ['Symptoms', 'Total Positive Cases', 'Testing info', 'Positive Cases in specific date', 'Today\'s positive case by region', 'Today\'s \"total\" positive case by region']
             question = questionary.select("What do you want to know?", choices=multiple)
             response = question.ask()
             if response == 'Symptoms':
@@ -81,6 +86,9 @@ class CovidTracker(cli.Application):
             elif response == 'Today\'s positive case by region':
                 region = questionary.text("Please type the name of the region").ask()
                 print("There are " + specific_area(region) + " positive cases in " + region + " today")
+            elif response == 'Today\'s \"total\" positive case by region':
+                print(total())
+                print(total_regional_data())
 
 if __name__ == "__main__":
     CovidTracker()
@@ -98,6 +106,8 @@ def test_specific_date():
     assert specific_date("1111-22333") == 'symbol error'
     assert specific_date("1111-22-3k") == 'Please write in yyyy-mm-dd form'
     assert specific_date("2020-00-00") == 'Sorry, the data for this date doesn\'t exist.'
+    june_thirteenth = specific_date("2021-06-13")
+    assert june_thirteenth == "452"
 
 def test_specific_area():
     assert specific_area("hi") == 'The region name doesn\'t exist'
