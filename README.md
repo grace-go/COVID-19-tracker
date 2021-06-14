@@ -11,3 +11,5 @@ If you run tracker.py, you should choose one of the 6 features: Symptoms, Total 
 Also, if you run "python3 tracker.py -i" or "python3 tracker.py --info", it gives you a brief description about what this CLI does.
 
 And here's the preview of this CLI!
+
+![](https://github.com/grace-go/COVID-19-tracker/blob/main/Screen%20Recording%202021-06-14%20at%2012.18.39%20AM.gif)
