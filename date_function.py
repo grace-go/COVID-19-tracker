@@ -18,7 +18,6 @@ realdata = """
 }
 """
 
-
 regional_data = """
 {
     "seoul":"176","gyeonggi":"149","daegu":"15","incheon":"15",
